@@ -86,7 +86,7 @@ def save_metrics(metrics: dict, save_file_path: str) -> None:
 
 def main() -> None:
     try:
-        df = load_data(data_path="./feature_engineered_data",filename="X_test_feature_engineered.csv",logger=logger)
+        df = load_data(data_path="./data/feature_engineered_data",filename="X_test_feature_engineered.csv",logger=logger)
         X_test = df.drop("PDN",axis=1)
         y_true = df["PDN"]
 

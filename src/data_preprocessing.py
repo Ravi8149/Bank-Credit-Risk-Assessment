@@ -91,11 +91,11 @@ def data_preprocessing(df: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     try:
-        input_filepath = './raw_data'
+        input_filepath = './data/raw_data'
         df = load_data(data_path=input_filepath,filename="raw.csv",logger=logger)
         # translation_columns = ["SEX","EDU","LV_AREA","INDUSTRYNAME"]
         processed_df = data_preprocessing(df=df)
-        save_data(df=processed_df, save_data_path="./processed_data/",filename="processed.csv",logger=logger)
+        save_data(df=processed_df, save_data_path="./data/processed_data/",filename="processed.csv",logger=logger)
     except Exception as e:
         logger.error(f"Data Preprocessing failed: {e}")
         raise

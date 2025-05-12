@@ -53,7 +53,7 @@ def main() -> None:
     try:
         df = load_data(data_path="./data", filename="bank_credit_scoring.csv",logger=logger)
         final_df = dataframe_restructuring(df=df)
-        save_data(df=df,save_data_path='./raw_data',filename="raw.csv",logger=logger)
+        save_data(df=df,save_data_path='./data/raw_data',filename="raw.csv",logger=logger)
         logger.debug(f"Data Ingestion Completed Successfully")
     except Exception as e:
         logger.error(f"Data Ingestion Failed: {e}")

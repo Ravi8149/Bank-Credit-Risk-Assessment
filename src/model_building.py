@@ -64,7 +64,7 @@ def save_model(model, model_save_path: str, filename: str) -> None:
     
 def main() -> None:
     try:
-        df = load_data(data_path="./feature_engineered_data/",filename="X_train_feature_engineered.csv",logger=logger)
+        df = load_data(data_path="./data/feature_engineered_data/",filename="X_train_feature_engineered.csv",logger=logger)
         X_train = df.drop("PDN",axis=1)
         y_train = df["PDN"]
         model = model_training(X_train=X_train,y_train=y_train)

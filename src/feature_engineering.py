@@ -103,15 +103,15 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
 
 def main() -> None:
     try:
-        df = load_data(data_path="./processed_data/",filename="processed.csv",logger=logger)
+        df = load_data(data_path="./data/processed_data/",filename="processed.csv",logger=logger)
         df = feature_handling(df=df)
         X_train, X_test = train_test_split(df, test_size=0.2)
         logger.debug(f"Feature Engineering for Training Data Started")
         feature_engineered_X_train = feature_engineering(df=X_train)
         logger.debug(f"Feature Engineering for Test Data Started")
         feature_engineered_X_test = feature_engineering(df=X_test)
-        save_data(df=feature_engineered_X_train,save_data_path="./feature_engineered_data/",filename="X_train_feature_engineered.csv",logger=logger)
-        save_data(df=feature_engineered_X_test,save_data_path="./feature_engineered_data/",filename="X_test_feature_engineered.csv",logger=logger)
+        save_data(df=feature_engineered_X_train,save_data_path="./data/feature_engineered_data/",filename="X_train_feature_engineered.csv",logger=logger)
+        save_data(df=feature_engineered_X_test,save_data_path="./data/feature_engineered_data/",filename="X_test_feature_engineered.csv",logger=logger)
         logger.debug(f"Feature Engineering completed successfully")
     except Exception as e:
         logger.error(f"Feature Engineering: {e}")

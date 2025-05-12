@@ -1,9 +1,8 @@
-feature_engineered_data
-models
-processed_data
+data
 logs
-raw_data
+models
 reports
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
