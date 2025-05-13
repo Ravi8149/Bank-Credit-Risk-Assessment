@@ -9,8 +9,9 @@ def load_params(filepath: str, logger) -> dict:
     try:
         with open(filepath,'r') as file:
             params = yaml.safe_load(file)
-        return params
         logger.debug(f"Parameters retrieved from: {filepath}")
+        return params
+        
     except FileNotFoundError as e:
         logger.error(f"File not Found: {e}")
     except yaml.YAMLError as e:
