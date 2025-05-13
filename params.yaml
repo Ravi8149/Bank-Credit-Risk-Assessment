@@ -1,0 +1,8 @@
+feature_engineering:
+  test_size : 0.2
+model_building:
+  fit_intercept : True
+  copy_X : True
+  n_jobs : -1
+  positive : False
+  

@@ -1,7 +1,7 @@
 import os 
 import logging
 import pandas as pd
-from data_io import load_data, save_data
+from data_io import load_data, save_data, load_params
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OrdinalEncoder,OneHotEncoder
@@ -103,9 +103,11 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
 
 def main() -> None:
     try:
+        params = load_params(filepath="./params.yaml",logger=logger)
+        test_size = params["feature_engineering"]["test_size"]
         df = load_data(data_path="./data/processed_data/",filename="processed.csv",logger=logger)
         df = feature_handling(df=df)
-        X_train, X_test = train_test_split(df, test_size=0.2)
+        X_train, X_test = train_test_split(df, test_size=test_size)
         logger.debug(f"Feature Engineering for Training Data Started")
         feature_engineered_X_train = feature_engineering(df=X_train)
         logger.debug(f"Feature Engineering for Test Data Started")

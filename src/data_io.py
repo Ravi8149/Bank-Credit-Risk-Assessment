@@ -1,5 +1,23 @@
 import pandas as pd
 import os
+import yaml
+
+def load_params(filepath: str, logger) -> dict:
+    """
+    Loads params from a given yaml file to a python dictionary
+    """
+    try:
+        with open(filepath,'r') as file:
+            params = yaml.safe_load(file)
+        return params
+        logger.debug(f"Parameters retrieved from: {filepath}")
+    except FileNotFoundError as e:
+        logger.error(f"File not Found: {e}")
+    except yaml.YAMLError as e:
+        logger.error(f"YAML Error: {e}")
+    except Exception as e:
+        logger.error("Unexpected error occured while loading params from yaml: {e}")
+    
 
 def load_data(data_path: str, filename: str, logger) -> pd.DataFrame:
     """

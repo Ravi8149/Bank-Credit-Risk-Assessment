@@ -18,6 +18,8 @@ stages:
     deps:
     - data/processed_data
     - src/feature_engineering.py
+    params:
+    - feature_engineering.test_size
     outs:
     - data/feature_engineered_data
   model_building:
@@ -25,13 +27,18 @@ stages:
     deps:
     - data/feature_engineered_data
     - src/model_building.py
+    params:
+    - model_building.fit_intercept
+    - model_building.copy_X
+    - model_building.positive
+    - model_building.n_jobs
     outs:
-    - models/model.pkl
+    - models
   model_evaluation:
     cmd: python src/model_evaluation.py
     deps:
     - data/feature_engineered_data
-    - models/model.pkl
+    - models
     - src/model_evaluation.py
     metrics:
     - reports/metrics.json

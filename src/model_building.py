@@ -1,6 +1,6 @@
 import os 
 import logging 
-from data_io import load_data, save_data
+from data_io import load_data, save_data, load_params
 import pandas as pd
 # from xgboost import XGBRegressor
 from sklearn.linear_model import LinearRegression
@@ -29,7 +29,7 @@ logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
 
-def model_training(X_train, y_train):
+def model_training(X_train, y_train, params: dict):
     """
     Trains a regression model for given data
     """
@@ -39,7 +39,10 @@ def model_training(X_train, y_train):
             raise ValueError("The number of samples in X_train and y_train must be the same.")
         
         logger.debug("Initializing Model")
-        regressor = LinearRegression()
+        regressor = LinearRegression(fit_intercept=params["fit_intercept"],
+                                     copy_X=params["copy_X"],
+                                     n_jobs=params["n_jobs"],
+                                     positive=params["positive"])
         regressor.fit(X_train,y_train)
         logger.debug(f"Model Training Successful")
         return regressor
@@ -64,10 +67,12 @@ def save_model(model, model_save_path: str, filename: str) -> None:
     
 def main() -> None:
     try:
+        params = load_params(filepath="./params.yaml",logger=logger)
+        model_building_params = params["model_building"]
         df = load_data(data_path="./data/feature_engineered_data/",filename="X_train_feature_engineered.csv",logger=logger)
         X_train = df.drop("PDN",axis=1)
         y_train = df["PDN"]
-        model = model_training(X_train=X_train,y_train=y_train)
+        model = model_training(X_train=X_train,y_train=y_train,params=model_building_params)
         save_model(model=model,model_save_path="./models/",filename="model.pkl")
         logger.debug(f"Model building completed successfully")
     except Exception as e:
